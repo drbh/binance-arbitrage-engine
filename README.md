@@ -1,5 +1,44 @@
-# binance-arbitrage-engine
+# 😻 binance-arbitrage-engine
 
+
+Welcome to 😻 BAE
+
+Dedicated to my BAE (image pending) ❤️  
+
+## What is this?
+
+😻 BAE, is a simple - `safe` - way to check for single exchange arbitrage potentials on Binance. Has simple event based bindings for Python, Node and Golang using zero mq.
+
+What is safe? what is zmq? Don't worry the point is you don't really have to worry about those things. 
+
+✅ The goal is to provide **consistent connection** to the exchange and fast calculations on the current pricing data. We use the lightweight Rust websocket implementation `tungstenite` (contained in the Binance library) to achieve a steady price stream.
+
+✅ Next we want to **calculate the arbitrage potential** - quickly and with fees included. This ends up being simple arithmetic and we can read the logic easily. Heres the actual code.  
+```rust
+let default_fee_percentage = 0.001;
+let a = btcusdt; // one btc to usd
+let b = ethusdt; // on eth to usd
+let c = ethbtc; // on eth to btc
+let start_amt = 1.0;
+// btcs to usdt
+let convert_usd = start_amt * a;
+let usd_fee = convert_usd * default_fee_percentage;
+let remaining_usd = convert_usd - usd_fee;
+// usdt to eths
+let convert_eth = remaining_usd / b;
+let eth_fee = convert_eth * default_fee_percentage;
+let remaining_eth = convert_eth - eth_fee;
+// eths to btc
+let convert_btc = remaining_eth * c;
+let btc_fee = convert_btc * default_fee_percentage;
+let remaining_btc = convert_btc - btc_fee;
+```
+
+✅ Lastly we want to **encapuslate our price listener** from our (not included) business logic. For instance, we might want to build a Python or Node bot around this stream. We'll want to use the real time pricing data from the Rust client - but write our execution logic in a language that is faster to prototype. We achieve this by running the main code as a seperate program that prints the current data in `JSON` to a ZMQ stream. ZQM has clients in practically every language and its simple to add a listener to the stream. [Example](client.go)
+
+#### Known Bugs!
+
+🐞 Unknown crash due to intermittent Binance message on websocket and execution fails on parsing as a `f64`
 
 In terminal A:
 ```bash
@@ -26,6 +65,9 @@ To show it in dollar terms, if you bought 10,000 TRX using BTC as the base curre
 To turn the tables around, if you exchanged 10,000 TRX for BTC at the same going rate as above, you'd get 0.1 BTC ($1,000). The 0.1% fee would then be applied in BTC, which would come out to 0.0001 BTC ($1.00), netting you 0.0999 BTC ($999). In essence, Binance's flat 0.1% fee means that you'll get charged 1 coin per 1,000, 10 per 10,000, 100 per 100,000, and so on, regardless of which currency you buy or sell." [link](https://smartphones.gadgethacks.com/how-to/binance-101-fees-fine-print-you-need-know-before-trading-bitcoins-other-cryptocurrencies-0182067/)
 
 # Data this program provides
+
+
+![screenshot](console.png)
 
 #### Market Activity Stream
 ```JSON
