@@ -21,28 +21,9 @@ fn main() {
         WebsocketEvent::DayTicker(ticker_events) => {
             for tick_event in ticker_events {
                 if tick_event.symbol == "BTCUSDT" {
-                    // println!(
-                    //     "{} {} Symbol: {}, price: {}, qty: {} avg: {}",
-                    //     tick_event.event_type,
-                    //     tick_event.event_time,
-                    //     tick_event.symbol,
-                    //     tick_event.best_bid,
-                    //     tick_event.best_bid_qty,
-                    //     tick_event.average_price
-                    // );
                     btcusdt = tick_event.average_price.parse().unwrap();
                 }
                 if tick_event.symbol == "ETHUSDT" {
-                    // println!(
-                    //     "{} {} Symbol: {}, price: {}, qty: {} avg: {}",
-                    //     tick_event.event_type,
-                    //     tick_event.event_time,
-                    //     tick_event.symbol,
-                    //     tick_event.best_bid,
-                    //     tick_event.best_bid_qty,
-                    //     tick_event.average_price
-                    // );
-
                     ethusdt = tick_event.average_price.parse().unwrap();
                 }
                 if tick_event.symbol == "ETHBTC" {
@@ -55,27 +36,106 @@ fn main() {
                     //     tick_event.best_bid_qty,
                     //     tick_event.average_price
                     // );
-
                     ethbtc = tick_event.average_price.parse().unwrap();
                 }
             }
+
+            // General: 0.1% trading fee
+
+            let default_fee_percentage = 0.001;
 
             let a = btcusdt; // one btc to usd
             let b = ethusdt; // on eth to usd
             let c = ethbtc; // on eth to btc
 
+            let start_amt = 1.0;
             // btcs to usdt
-            let z = 1.0 * a;
-            // usdt to eths
-            let y = z / b;
-            // eths to btc
-            let x = y * c;
+            let convert_usd = start_amt * a;
 
-            let s = format!("{} {} {} {}", btcusdt, ethusdt, ethbtc, x);
+            let usd_fee = convert_usd * default_fee_percentage;
+
+            let remaining_usd = convert_usd - usd_fee;
+            // usdt to eths
+            let convert_eth = remaining_usd / b;
+
+            let eth_fee = convert_eth * default_fee_percentage;
+
+            let remaining_eth = convert_eth - eth_fee;
+            // eths to btc
+            let convert_btc = remaining_eth * c;
+
+            let btc_fee = convert_btc * default_fee_percentage;
+
+            let remaining_btc = convert_btc - btc_fee;
+
+            let s = format!(
+                "{{
+    \"btcusdt\": {} ,
+    \"ethusdt\": {} ,
+    \"ethbtc\": {} ,
+
+    \"start_amt\": {} ,
+    \"convert_usd\": {} ,
+    \"usd_fee\": {} ,
+    \"remaining_usd\": {} ,
+    \"convert_eth\": {} ,
+    \"eth_fee\": {} ,
+    \"remaining_eth\": {} ,
+    \"convert_btc\": {} ,
+    \"btc_fee\": {} ,
+    \"remaining_btc\": {} 
+    
+}}",
+                btcusdt,
+                ethusdt,
+                ethbtc,
+                start_amt,
+                convert_usd,
+                usd_fee,
+                remaining_usd,
+                convert_eth,
+                eth_fee,
+                remaining_eth,
+                convert_btc,
+                btc_fee,
+                remaining_btc
+            );
+
+            let _execution = format!(
+                "[
+{{
+    \"ticker\": \"BTCUSDT\",
+    \"amount\": 1,
+    \"price\": {},
+    \"action\": \"SELL\"
+}},
+{{
+    \"ticker\": \"ETHUSDT\",
+    \"amount\": {},
+    \"price\": {},
+    \"action\": \"BUY\"
+}},
+{{
+    \"ticker\": \"ETHBTC\",
+    \"amount\": {},
+    \"price\": {},
+    \"action\": \"SELL\"
+}},]",
+                btcusdt, remaining_usd, ethusdt, remaining_eth, ethbtc,
+            );
+
             // println!("{:?}", s);
             publisher
                 .send(&s, 0)
+                // .send(&s, 0)
                 .expect("failed sending first envelope");
+
+            if remaining_btc > 1.01 {
+                publisher
+                    .send(&_execution, 0)
+                    // .send(&s, 0)
+                    .expect("failed sending first envelope");
+            }
         }
 
         _ => return,
