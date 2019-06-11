@@ -1,4 +1,7 @@
 /target
 **/*.rs.bk
-www
-server
+server/client.go
+server/home.html
+server/hub.go
+server/main.go
+server/server

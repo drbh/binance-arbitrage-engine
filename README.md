@@ -4,6 +4,10 @@ Welcome to 😻 BAE
 
 Dedicated to my BAE (image pending) ❤️  
 
+
+Screenshot of a beta beta beta UI
+![simple UI](images/basic_ui.png)
+
 # What is this?
 
 😻 BAE, is a simple - `safe` - way to check for single exchange arbitrage potentials on Binance. Has simple event based bindings for Python, Node and Golang using zero mq.
@@ -60,6 +64,31 @@ for (NODE):
 ```bash
 node client.js 
 ```
+
+### Running the super beta UI
+
+This is an early stage UI that will update in real time. A Go websocket server connects to the price watcher channel and sends a message to the UI's websocket every update. It also sends the total value after trading - so you can see if its a good time to arbitrage or not.
+
+build the development React webapp
+```
+cd www
+yarn
+yarn start
+```
+
+start the websocket server
+```
+cd server
+go run simple.go
+```
+
+open app in standalone window!
+```
+go run tiny_ui.go
+```
+
+Note: The websocket server doesn't correctly stop sending data after the websocket connection is closed, so you may have to restart your server often to not hinder performance. 
+
 
 # Data this program provides
 
