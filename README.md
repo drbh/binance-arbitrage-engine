@@ -67,7 +67,7 @@ To turn the tables around, if you exchanged 10,000 TRX for BTC at the same going
 # Data this program provides
 
 
-![screenshot](console.png)
+![screenshot](images/console.png)
 
 #### Market Activity Stream
 ```JSON
