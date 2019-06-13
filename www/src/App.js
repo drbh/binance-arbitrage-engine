@@ -81,11 +81,11 @@ class App extends React.Component {
       ctx.fillText('ETH',x+200+15,y+200);
       
       ctx.font = '18px sans-serif';
-      ctx.fillText('$ '+this.state.variable_btcusdt,80,  200);
+      ctx.fillText('$ '+this.state.variable_btcusdt,60,  200);
       ctx.fillText('$ '+this.state.variable_ethusdt,270,  200);
-      ctx.fillText('Ƀ '+this.state.variable_ethbtc,170,  330);
+      ctx.fillText('Ƀ '+this.state.variable_ethbtc,150,  330);
       
-      ctx.font = '24px sans-serif';
+      ctx.font = '18px sans-serif';
       //ctx.fillStyle = "#000";
       ctx.fillStyle = "#F9A520";
       ctx.fillText(this.state.variable_final,158,  230);

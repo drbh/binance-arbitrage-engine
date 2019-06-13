@@ -77,8 +77,16 @@ func echo(w http.ResponseWriter, r *http.Request) {
                 log.Println("MSG Error:", err)
                 break
             }
+
+            // log.Println("send")
+            resp := c.WriteMessage(mt, []byte(address))
+
+            if resp != nil {
+                log.Println("Client Closed")
+                break
+            }
             log.Println("send")
-            c.WriteMessage(mt, []byte(address))
+            // log.Println(resp)
         }
 
         // if err != nil {
