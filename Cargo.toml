@@ -7,3 +7,4 @@ edition = "2018"
 [dependencies]
 binance = "0.5.0"
 zmq = "0.9"
+bytevec = "0.2.0"

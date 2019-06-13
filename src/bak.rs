@@ -1,3 +1,35 @@
+
+// 100 times slower
+// crossbeam::scope(|scope| {
+//     for tick_event in &ticker_events {
+//         let _pair_a = pair_a.clone();
+//         let _pair_b = pair_b.clone();
+//         let _pair_c = pair_c.clone();
+
+//         scope.spawn(move |_| {
+//             if tick_event.symbol == _pair_a {
+//                 btcusdt = tick_event.current_close.parse().unwrap();
+//                 money_a_time = tick_event.event_time;
+//             }
+//             if tick_event.symbol == _pair_b {
+//                 ethusdt = tick_event.current_close.parse().unwrap();
+//                 money_b_time = tick_event.event_time;
+//             }
+//             if tick_event.symbol == _pair_c {
+//                 ethbtc = tick_event.current_close.parse().unwrap();
+//                 money_c_time = tick_event.event_time;
+//             }
+//         });
+//     }
+// })
+// .unwrap();
+
+//
+
+// extern crate crossbeam;
+// crossbeam = "0.7.1"
+
+
  let s = format!(
         "{{
     \"{}\": {},

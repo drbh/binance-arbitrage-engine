@@ -1,3 +1,9 @@
 pair_a=BTCUSDT
 pair_b=ETHUSDT
 pair_c=ETHBTC
+pair_d=BNBUSDT
+pair_e=BNBBTC
+pair_f=LTCUSDT
+pair_g=LTCBTC
+pair_h=EOSUSDT
+pair_i=EOSBTC
