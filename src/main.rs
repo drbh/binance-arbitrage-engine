@@ -12,7 +12,15 @@ mod helper;
 use crate::helper::get_timestamp;
 use crate::helper::read_configure;
 
-// diesel = { version = "1.0.0", features = ["postgres"] }
+use crate::helper::create_post;
+use crate::helper::establish_connection;
+
+#[macro_use]
+extern crate diesel;
+extern crate dotenv;
+
+pub mod models;
+pub mod schema;
 
 fn main() {
     //
@@ -69,6 +77,29 @@ fn main() {
     let start_amt = 1.0;
     // should add flag for math flip
     // or rev traverse triangle
+
+    // Testing save speeds
+
+    let connection = establish_connection();
+
+    // let post = create_post(
+    //     &connection,
+    //     &0.0,
+    //     &0.0,
+    //     &0.0,
+    //     &0.0,
+    //     &0.0,
+    //     &0.0,
+    //     &0.0,
+    //     &0.0,
+    //     &0.0,
+    //     &0.0,
+    //     &0.0,
+    //     &0.0,
+    //     &0.0,
+    //     &0.0,
+    // );
+    // println!("\nSaved draft with id {:?}", post.id);
 
     //
     //
@@ -131,6 +162,7 @@ fn main() {
                     already_found += 1;
                 }
 
+                // allow early break
                 if already_found == 9 {
                     break;
                 }
@@ -178,6 +210,25 @@ fn main() {
 
             contacts.insert("time4", times4_bytes);
             contacts.insert("value4", results4_bytes);
+
+            let post = create_post(
+                &connection,
+                &(in_ms as f64),
+                &(in_ms as f64),
+                &(money_a_time as f64),
+                &(money_b_time as f64),
+                &(money_c_time as f64),
+                &(results[0] as f64),
+                &(results[1] as f64),
+                &(results[2] as f64),
+                &(results[3] as f64),
+                &(results[4] as f64),
+                &(results[5] as f64),
+                &(results[6] as f64),
+                &(results[7] as f64),
+                &(results[8] as f64),
+            );
+            println!("\nSaved draft with id {:?}", post.id);
 
             let duration = _start.elapsed();
             println!("{} DONE: {:?}\n", in_ms, duration);
