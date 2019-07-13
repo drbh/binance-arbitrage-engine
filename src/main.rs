@@ -113,51 +113,51 @@ fn main() {
 
             for tick_event in ticker_events {
                 if tick_event.symbol == pair_a {
-                    btcusdt = tick_event.current_close.parse().unwrap();
+                    btcusdt = tick_event.current_close.parse().unwrap_or(-1.0);
                     money_a_time = tick_event.event_time;
                     already_found += 1;
                 }
                 // ETH
                 if tick_event.symbol == pair_b {
-                    ethusdt = tick_event.current_close.parse().unwrap();
+                    ethusdt = tick_event.current_close.parse().unwrap_or(-1.0);
                     money_b_time = tick_event.event_time;
                     already_found += 1;
                 }
                 if tick_event.symbol == pair_c {
-                    ethbtc = tick_event.current_close.parse().unwrap();
+                    ethbtc = tick_event.current_close.parse().unwrap_or(-1.0);
                     money_c_time = tick_event.event_time;
                     already_found += 1;
                 }
                 // BNB
                 if tick_event.symbol == pair_d {
-                    bnbusdt = tick_event.current_close.parse().unwrap();
+                    bnbusdt = tick_event.current_close.parse().unwrap_or(-1.0);
                     money_d_time = tick_event.event_time;
                     already_found += 1;
                 }
                 if tick_event.symbol == pair_e {
-                    bnbbtc = tick_event.current_close.parse().unwrap();
+                    bnbbtc = tick_event.current_close.parse().unwrap_or(-1.0);
                     money_e_time = tick_event.event_time;
                     already_found += 1;
                 }
                 // LTC
                 if tick_event.symbol == pair_f {
-                    ltcusdt = tick_event.current_close.parse().unwrap();
+                    ltcusdt = tick_event.current_close.parse().unwrap_or(-1.0);
                     money_f_time = tick_event.event_time;
                     already_found += 1;
                 }
                 if tick_event.symbol == pair_g {
-                    ltcbtc = tick_event.current_close.parse().unwrap();
+                    ltcbtc = tick_event.current_close.parse().unwrap_or(-1.0);
                     money_g_time = tick_event.event_time;
                     already_found += 1;
                 }
                 // EOS
                 if tick_event.symbol == pair_h {
-                    eosusdt = tick_event.current_close.parse().unwrap();
+                    eosusdt = tick_event.current_close.parse().unwrap_or(-1.0);
                     money_h_time = tick_event.event_time;
                     already_found += 1;
                 }
                 if tick_event.symbol == pair_i {
-                    eosbtc = tick_event.current_close.parse().unwrap();
+                    eosbtc = tick_event.current_close.parse().unwrap_or(-1.0);
                     money_i_time = tick_event.event_time;
                     already_found += 1;
                 }

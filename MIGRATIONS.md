@@ -7,6 +7,7 @@ sudo service postgresql start
 
 ```
 export DATABASE_URL=postgres://postgres:$mysecretpassword@localhost
+export DATABASE_URL=postgres://drbh2:@localhost
 ```
 
 
