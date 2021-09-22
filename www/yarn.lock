@@ -2391,9 +2391,9 @@ chartjs-color@^2.1.0:
     color-convert "^0.5.3"
 
 chartkick@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/chartkick/-/chartkick-3.1.0.tgz#1c330028b84d5580d5884c00d901e5934ecc2e31"
-  integrity sha512-45ALBwI9KCZR+bMue/xxhnO6i04cGhM98hVnHH/gKDQRc/2TPbskZEYbAQL1nxbGrlO6NQZBlRIHPNyOnP/zsw==
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/chartkick/-/chartkick-3.2.1.tgz#a80c2005ae353c5ae011d0a756b6f592fc8fc7a9"
+  integrity sha512-zV0kUeZNqrX28AmPt10QEDXHKadbVFOTAFkCMyJifHzGFkKzGCDXxVR8orZ0fC1HbePzRn5w6kLCOVxDQbMUCg==
 
 chokidar@^2.0.0, chokidar@^2.0.2, chokidar@^2.0.4:
   version "2.1.5"
